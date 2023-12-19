@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import Translation from "@/pages/(models)/translate";
+import Translation from "@/models/translate";
 import { ITranslations } from "@/interfaces/interface";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(req.method);
