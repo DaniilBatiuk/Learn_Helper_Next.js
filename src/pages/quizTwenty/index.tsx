@@ -9,6 +9,19 @@ export default function QuizTwenty() {
     queryFn: handleGetTestTwenty,
   });
 
+  // useEffect(() => {
+  //   if (!data) return;
+  //   setCurrentArray(data.slice(0, 3));
+  // }, [data]);
+
+  // const [currentArray, setCurrentArray] = useState<ITest[]>([]);
+  // const [newArray, setNewArray] = useState<ITest[]>([]);
+
+  // useEffect(() => {
+  //   if (!data) return;
+  //   setCurrentArray(data.slice(0, 3));
+  // }, [data]);
+
   return (
     <>
       <Head>

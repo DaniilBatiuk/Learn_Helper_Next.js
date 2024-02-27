@@ -1,28 +1,43 @@
-import { useMultistepForm } from "@/hooks/useMultistepForm";
 import { ITest } from "@/interfaces/interface";
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Quiz } from "./Quiz";
-import { handleGetTestTwenty } from "@/services/dictionary.service";
 
 type QuizPageProp = {
   res: ITest[];
 };
 
 export function QuizPage({ res }: QuizPageProp) {
-  const quizElements = res.map((el: ITest, index) => <Quiz key={index} word={el.word} translations={el.translations} />);
+  const [currentArray, setCurrentArray] = useState<ITest[]>(res);
+  const [newArray, setNewArray] = useState<ITest[]>([]);
+  const [quizElements, setQuizElements] = useState<JSX.Element[]>([]);
+  useEffect(() => {
+    const updatedQuizElements = currentArray.map((el: ITest, index) => <Quiz key={index} test={el} setNewArray={setNewArray} />);
+    setQuizElements(updatedQuizElements);
+  }, [currentArray, setNewArray]);
 
-  const { steps, currentStepIndex, step, isLastStep, next } = useMultistepForm(quizElements);
+  //let { steps, currentStepIndex, step, isLastStep, next } = useMultistepForm(quizElements);
+
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  function next() {
+    setCurrentStepIndex(i => {
+      if (i >= quizElements.length - 1) return i;
+      return i + 1;
+    });
+  }
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!isLastStep) {
+    if (!(currentStepIndex === quizElements.length - 1)) {
       setTimeout(() => {
         next();
-      }, 2000);
+      }, 1000);
     } else {
       setTimeout(() => {
         alert("Successful Account Creation");
-      }, 2000);
+        setCurrentArray(newArray);
+        setNewArray([]);
+        setCurrentStepIndex(0);
+      }, 1000);
     }
   }
 
@@ -30,9 +45,9 @@ export function QuizPage({ res }: QuizPageProp) {
     <div className="quiz__container">
       <form onSubmit={onSubmit} className="quiz__form">
         <div className="quiz__score">
-          {currentStepIndex + 1} / {steps.length}
+          {currentStepIndex + 1} / {quizElements.length}
         </div>
-        {step}
+        {quizElements[currentStepIndex]}
       </form>
     </div>
   );

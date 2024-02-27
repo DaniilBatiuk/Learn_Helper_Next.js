@@ -1,15 +1,20 @@
 import { ITest, ITrue } from "@/interfaces/interface";
 import { useState } from "react";
 
-export function Quiz({ word, translations }: ITest) {
+type QuizType = {
+  test: ITest;
+  setNewArray: any;
+};
+
+export function Quiz({ test, setNewArray }: QuizType) {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isClickedWord, setIsClickedWord] = useState<string>("");
   return (
     <div className="quiz">
-      <div className="quiz__main__word">{word}</div>
+      <div className="quiz__main__word">{test.word}</div>
       <div className="quiz__list">
-        {translations &&
-          translations.map((translation: ITrue, index) => (
+        {test.translations &&
+          test.translations.map((translation: ITrue, index) => (
             <button
               key={index}
               type="submit"
@@ -17,6 +22,9 @@ export function Quiz({ word, translations }: ITest) {
               onClick={() => {
                 setIsClicked(true);
                 setIsClickedWord(translation.word);
+                if (!translation.isTrue) {
+                  setNewArray((prev: any) => [...prev, test]);
+                }
               }}
             >
               {translation.word}
