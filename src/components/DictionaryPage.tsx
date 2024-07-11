@@ -3,8 +3,18 @@ import { ITranslations } from "@/interfaces/interface";
 import { DictionaryService } from "@/services/dictionary.service";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+//@ts-ignore
+import { useSpeechSynthesis } from "react-speech-kit";
 
 export function DictionaryPage() {
+  const [voiceEN, setVoiceEN] = useState(null);
+  const { speak, voices } = useSpeechSynthesis();
+
+  useEffect(() => {
+    setVoiceEN(voices[5]);
+  }, [voices.length]);
+
   const { isLoading, data } = useQuery({
     queryKey: ["dictionary"],
     queryFn: DictionaryService.getDictionary,
@@ -34,7 +44,7 @@ export function DictionaryPage() {
         </div>
       </div>
 
-      <div className="dictionary__list">{data !== undefined && data.map((el: ITranslations) => <TranslateItem key={el._id} translateItem={el} />)}</div>
+      <div className="dictionary__list">{data !== undefined && data.map((el: ITranslations) => <TranslateItem key={el._id} translateItem={el} voiceEN={voiceEN} />)}</div>
     </div>
   );
 }
