@@ -19,7 +19,6 @@ export function TranslateItem({ translateItem }: TranslateItemProps) {
   };
   const { speak, voices } = useSpeechSynthesis();
 
-  console.log(voices);
   return (
     <div className="dictionary__item">
       <div className="dictionary__action">
