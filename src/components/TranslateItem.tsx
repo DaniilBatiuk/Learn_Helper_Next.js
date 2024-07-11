@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { ITranslations } from "@/interfaces/interface";
-import { UpdateTranslation } from "./UpdateTranslation";
 import { DictionaryService } from "@/services/dictionary.service";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
 import { useRouter } from "next/router";
-
+import { useState } from "react";
+//@ts-ignore
+import { useSpeechSynthesis } from "react-speech-kit";
+import { UpdateTranslation } from "./UpdateTranslation";
 interface TranslateItemProps {
   translateItem: ITranslations;
 }
@@ -17,12 +17,22 @@ export function TranslateItem({ translateItem }: TranslateItemProps) {
     await mutation.mutate({ _id: translateItem._id });
     router.reload();
   };
+  const { speak, voices } = useSpeechSynthesis();
 
+  console.log(voices);
   return (
     <div className="dictionary__item">
       <div className="dictionary__action">
         <div className="dictionary__word">{translateItem.word}</div>
         <div className="dictionary__form">
+          <button className="dictionary__delete" onClick={() => speak({ text: translateItem.word, voice: voices[5] })}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M23.0667 14.6667C23.0667 18.6667 19.6801 21.4667 16.0001 21.4667C12.3201 21.4667 8.93341 18.6667 8.93341 14.6667H6.66675C6.66675 19.2133 10.2934 22.9733 14.6667 23.6267V28H17.3334V23.6267C21.7067 22.9733 25.3334 19.2133 25.3334 14.6667M14.4001 6.53332C14.4001 5.65332 15.1201 4.93332 16.0001 4.93332C16.8801 4.93332 17.6001 5.65332 17.6001 6.53332L17.5867 14.8C17.5867 15.68 16.8801 16.4 16.0001 16.4C15.1201 16.4 14.4001 15.68 14.4001 14.8M16.0001 18.6667C17.0609 18.6667 18.0784 18.2452 18.8285 17.4951C19.5787 16.7449 20.0001 15.7275 20.0001 14.6667V6.66666C20.0001 5.60579 19.5787 4.58838 18.8285 3.83823C18.0784 3.08808 17.0609 2.66666 16.0001 2.66666C14.9392 2.66666 13.9218 3.08808 13.1717 3.83823C12.4215 4.58838 12.0001 5.60579 12.0001 6.66666V14.6667C12.0001 15.7275 12.4215 16.7449 13.1717 17.4951C13.9218 18.2452 14.9392 18.6667 16.0001 18.6667Z"
+                fill="black"
+              />
+            </svg>
+          </button>
           <button
             className="dictionary__update"
             onClick={e => {
