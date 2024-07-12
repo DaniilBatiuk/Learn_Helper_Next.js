@@ -22,7 +22,7 @@ export function TranslateItem({ translateItem, voiceIndex }: TranslateItemProps)
   const speech = new SpeechSynthesisUtterance();
   const voices = window.speechSynthesis.getVoices();
   speech.text = translateItem.word;
-  speech.voice = voices[voiceIndex];
+  speech.voice = voices[voiceIndex] ?? voices[0];
 
   return (
     <div className="dictionary__item">
