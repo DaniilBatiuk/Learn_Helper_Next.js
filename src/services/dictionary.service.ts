@@ -1,5 +1,5 @@
-import { IMessage, IOneTranslation, ITest, ITranslations, ITrue } from "@/interfaces/interface";
 import axios from "@/axios";
+import { IMessage, IOneTranslation, ITest, ITranslations, ITrue } from "@/interfaces/interface";
 
 export const DictionaryService = {
   async getDictionary() {

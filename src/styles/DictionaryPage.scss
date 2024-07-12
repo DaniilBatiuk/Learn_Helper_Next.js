@@ -83,11 +83,11 @@
   }
 
   &__button {
-    font-size: 24px;
+    font-size: 17px;
     padding: 7px 10px;
     cursor: pointer;
     background-color: rgb(64, 139, 209);
-    border-radius: 10px;
+    border-radius: 3px;
     color: white;
     transition: background-color 0.1s ease;
     display: flex;
@@ -103,5 +103,33 @@
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
+  }
+}
+
+#voice {
+  background-color: inherit;
+  border: 2px solid rgb(64, 139, 209);
+  border-radius: 5px;
+  font-size: 15px;
+  width: 100%;
+  padding: 1px;
+  font-family: inherit;
+  font-weight: inherit;
+  height: 34px;
+  margin-bottom: 10px;
+
+  transition-property: border;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+
+  &:focus,
+  &:active {
+    border: 2px solid rgb(31, 98, 160);
+    outline: none;
+    background-color: inherit;
+  }
+
+  &:hover {
+    border: 2px solid rgb(31, 98, 160);
   }
 }
