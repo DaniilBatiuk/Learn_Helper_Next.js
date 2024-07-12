@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useLayoutEffect, useState } from "react";
 
 export function DictionaryPage() {
-  const [voiceIndex, setVoiceIndex] = useState<number>(19);
+  const [voiceIndex, setVoiceIndex] = useState<number>(18);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[] | undefined>();
 
   useLayoutEffect(() => {
