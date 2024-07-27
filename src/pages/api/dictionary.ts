@@ -1,8 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import Translation from "@/models/translate";
 import { ITranslations } from "@/interfaces/interface";
+import Translation from "@/models/translate";
+import type { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(req.method);
+  console.log(req.body);
   if (req.method === "GET") {
     const { word } = req.body;
     if (word) {
@@ -10,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const rawTranslationData = await Translation.findOne({
           word: word,
         });
-        res.status(200).json({ message: "Ok" });
+        res.status(200).json({ message: rawTranslationData._id });
       } catch (err) {
         console.error(err);
         res.status(404).json({ message: "error" });

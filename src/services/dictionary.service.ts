@@ -10,8 +10,9 @@ export const DictionaryService = {
     const { data } = await axios.patch<IMessage>("/api/dictionary", { _id, word, translations });
     return data;
   },
+
   async deleteDictionary({ _id }: { _id: string }) {
-    const response = await fetch(`/api/dictionary`, {
+    await fetch(`/api/dictionary`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -19,9 +20,24 @@ export const DictionaryService = {
       body: JSON.stringify({ _id: _id }),
     });
   },
+
   async addDictionary({ word, translations }: { word: string; translations: string[] }) {
-    const { data } = await axios.post<IMessage>("/api/dictionary", { word, translations });
+    const { data } = await axios.get<ITranslations[]>(`/api/dictionary`);
+    console.log(data);
+    const res = data.find(el => el.word === word);
+    if (res) {
+      await fetch(`/api/dictionary`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id: res?._id }),
+      });
+    }
+
+    await axios.post<IMessage>("/api/dictionary", { word, translations });
   },
+
   async isExistInDictionary(word: string) {
     const { data } = await axios.post<IMessage>("/api/dictionary", { word });
     if (data.message === "Ok") {
