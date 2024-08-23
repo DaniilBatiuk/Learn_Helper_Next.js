@@ -1,15 +1,16 @@
-import "@/styles/globals.scss";
+import "@/styles/DictionaryPage.scss";
 import "@/styles/ExampleList.scss";
+import "@/styles/globals.scss";
+import "@/styles/Header.scss";
 import "@/styles/HomePage.scss";
+import "@/styles/Line.scss";
+import "@/styles/Quiz.scss";
+import "@/styles/QuizPage.scss";
 import "@/styles/TranslateForm.scss";
 import "@/styles/TranslationsList.scss";
-import "@/styles/Header.scss";
-import "@/styles/DictionaryPage.scss";
 import "@/styles/UpdateTranslation.scss";
-import "@/styles/QuizPage.scss";
-import "@/styles/Quiz.scss";
-import type { AppProps } from "next/app";
 import { HydrationBoundary, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { AppProps } from "next/app";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,0 +1,9 @@
+.line {
+  margin-top: 70px;
+  width: 16000px;
+  height: 8000px;
+
+  &_con {
+    overflow: scroll;
+  }
+}
